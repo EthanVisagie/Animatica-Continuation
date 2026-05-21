@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 // Allows invalid characters in paths to support packs with extremely outdated formatting (because OptiFine does too)
 @Mixin(Identifier.class)
 public class IdentifierMixin {
-    @Inject(method = "<init>([Ljava/lang/String;)V", at = @At("TAIL"))
-    private void animatica$reportInvalidIdentifierCharacters(String[] id, CallbackInfo ci) {
-        if (Flags.ALLOW_INVALID_ID_CHARS && !animatica$isPathAllowed(id[1]) && !id[1].startsWith("~/")) {
-            Animatica.LOG.warn("Legacy resource pack is using an invalid namespaced identifier '{}:{}'! DO NOT use non [a-z0-9_.-] characters for resource pack files and file names!", id[0], id[1]);
+    @Inject(method = "<init>(Ljava/lang/String;Ljava/lang/String;)V", at = @At("TAIL"))
+    private void animatica$reportInvalidIdentifierCharacters(String namespace, String path, CallbackInfo ci) {
+        if (Flags.ALLOW_INVALID_ID_CHARS && !animatica$isPathAllowed(path) && !path.startsWith("~/")) {
+            Animatica.LOG.warn("Legacy resource pack is using an invalid namespaced identifier '{}:{}'! DO NOT use non [a-z0-9_.-] characters for resource pack files and file names!", namespace, path);
         }
     }
 

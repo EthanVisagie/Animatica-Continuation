@@ -28,7 +28,7 @@ public class AnimatedTexture extends NativeImageBackedTexture {
     }
 
     public AnimatedTexture(ResourceManager resources, List<AnimationMeta> metas, NativeImage image) throws IOException {
-        super(new NativeImage(image.getFormat(), image.getWidth(), image.getHeight(), true));
+        super(() -> "animatica animated texture", new NativeImage(image.getFormat(), image.getWidth(), image.getHeight(), true));
 
         this.anims = new Animation[metas.size()];
         for (int i = 0; i < metas.size(); i++) {
